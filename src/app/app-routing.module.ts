@@ -9,10 +9,6 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: "cart",
-    component: CartComponent,
-  },
-  {
     path: "",
     redirectTo: "home",
     pathMatch: "full",

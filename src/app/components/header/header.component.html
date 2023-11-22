@@ -1,46 +1,61 @@
-<mat-toolbar class="justify-between h-20">
-  <a routerLink="home">RNA Store</a>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon
-      [matBadge]="itemsQuantity"
-      [matBadgeHidden]="!itemsQuantity"
-      matBadgeColor="warn"
-      >shopping_cart</mat-icon
-    >
-  </button>
-  <mat-menu #menu="matMenu">
-    <div class="px-3 py-1 divide-y divide-solid">
-      <div class="pb-2 flex justify-between items-center">
-        <span class="mr-16">{{ itemsQuantity }} Items</span>
-        <a routerLink="cart">View Cart</a>
+<div
+  class="px-2 py-4 md:px-4 lg:px-6 xl:px-8 shadow-sm bg-white fixed top-0 z-50 left-0 w-full"
+  *ngIf="categories && categories.length !== 0"
+>
+  <div class="flex items-center justify-between gap-4 max-w-screen-2xl mx-auto">
+    <div class="flex items-center gap-3 flex-grow">
+      <a
+        routerLink="home"
+        class="hidden text-2xl text-amber-600 px-4 flex-shrink-0 md:flex items-center justify-center italic font-semibold font-dancing-script"
+      >
+        <span>shoppers</span>
+        <span class="text-emerald-600">.</span>
+        <span class="text-gray-600 text-sm translate-y-1/2">com</span>
+      </a>
+      <button
+        (click)="toggleDrawer()"
+        class="p-3 rounded-full flex-shrink-0 md:hidden hover:bg-gray-100"
+      >
+        <img
+          src="../../../assets/images/shop-logo.svg"
+          alt="menu"
+          class="h-6 w-6"
+        />
+      </button>
+      <div
+        class="flex items-center justify-start bg-gray-100 rounded-lg py-2 px-3 flex-grow"
+      >
+        <img
+          src="../../../assets/images/search.svg"
+          alt="search"
+          class="h-6 w-6"
+        />
+        <input
+          type="text"
+          id="text"
+          placeholder="Search shop..."
+          class="bg-transparent px-4 py-1 outline-none w-full"
+        />
       </div>
-      <div *ngIf="cart.items.length">
-        <div
-          *ngFor="let item of cart.items"
-          class="flex justify-between items-center font-light my-2"
-        >
-          {{ item.name }} x {{ item.quantity }}
-          <span class="font-bold">{{ item.price | currency }}</span>
-        </div>
-      </div>
-      <div class="flex justify-between items-center font-light my-2 pt-2">
-        Total:
-        <span class="font-bold">{{ getTotal(cart.items) | currency }}</span>
-      </div>
-      <div class="flex justify-between items-center pt-2">
+      <div
+        class="items-center justify-evenly overflow-hidden flex-grow hidden md:flex"
+      >
         <button
-          (click)="onEmptyCart()"
-          class="w-11 h-11 rounded-full text-white bg-red-500"
+          *ngFor="let category of categories"
+          class="capitalize truncate hover:text-amber-500 text-gray-500 font-gotham font-semibold text-sm mx-2"
         >
-          <mat-icon>remove_shopping_cart</mat-icon>
-        </button>
-        <button
-          class="w-11 h-11 rounded-full text-white bg-green-500"
-          routerLink="cart"
-        >
-          <mat-icon>shopping_cart</mat-icon>
+          {{ category }}
         </button>
       </div>
     </div>
-  </mat-menu>
-</mat-toolbar>
+    <button
+      class="rounded-full p-3 hover:bg-gray-100 text-gray-200 flex-shrink-0"
+    >
+      <img
+        src="../../../assets/images/cart.svg"
+        alt="checkout cart"
+        class="h-6 w-6"
+      />
+    </button>
+  </div>
+</div>

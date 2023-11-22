@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        gotham: ["Gotham", "sans-serif"],
+        "dancing-script": ["Dancing Script", "cursive"],
+      },
+    },
   },
   plugins: [],
 };
