@@ -1,0 +1,22 @@
+<div class="flex flex-col items-center gap-5 mt-10">
+  <button
+    (click)="scrollIntoView('hero')"
+    class="text-2xl text-amber-600 px-4 flex-shrink-0 flex items-center justify-center italic font-semibold font-dancing-script"
+  >
+    <span>shoppers</span>
+    <span class="text-emerald-600">.</span>
+    <span class="text-gray-400 text-sm translate-y-1/2">com</span>
+  </button>
+  <button
+    class="cursor-pointer font-semibold text-gray-500 hover:text-blue-600 dark:hover:text-yellow-600 px-2 text-xl text-center"
+    *ngFor="let category of categories"
+    (click)="scrollIntoView(category)"
+  >
+    <span
+      *ngIf="activeSection | async as active"
+      [ngClass]="{ 'text-gray-100': active === category }"
+      class="capitalize whitespace-nowrap"
+      >{{ category }}</span
+    >
+  </button>
+</div>
