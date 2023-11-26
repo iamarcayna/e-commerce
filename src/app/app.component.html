@@ -1,5 +1,5 @@
-<app-header [cart]="cart" (toggle)="drawerOpen()"></app-header>
-<main class="mt-20">
+<main>
+  <app-header [cart]="cart" (toggle)="drawerOpen()"></app-header>
   <router-outlet></router-outlet>
 </main>
 <app-drawer [open]="open" (close)="drawerClose()"></app-drawer>

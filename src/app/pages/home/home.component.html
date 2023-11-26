@@ -1,3 +1,21 @@
-<section *ngFor="let category of categories" [id]="category" class="h-[100vh]">
+<section id="hero" class="h-[calc(100vh-80px)] flex max-w-screen-2xl mx-auto">
+  <div class="flex-1 h-full flex items-center justify-center">
+    <div>
+      <p>Welcome to <span>Shoppers</span>!</p>
+      <p>Discover Endless Possibilities.</p>
+      <p>
+        Uncover a world of quality and variety at your fingertips. From tech
+        gadgets to fashion essentials, find everything you need in one place.
+      </p>
+      <button>Explore Now</button>
+    </div>
+  </div>
+  <div class="flex-1 h-full flex items-center justify-center"></div>
+</section>
+<section
+  *ngFor="let category of categories"
+  [id]="category"
+  class="h-auto max-w-screen-2xl mx-auto"
+>
   {{ category }}
 </section>

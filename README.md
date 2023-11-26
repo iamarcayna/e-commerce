@@ -1,27 +1,58 @@
-# ECommerce
+# [Shoppers] E-commerce App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.5.
+## Description
 
-## Development server
+This e-commerce application integrates the FakeStoreAPI to simulate a fully functional online shopping experience. It offers users the ability to browse a variety of products, add items to their cart, and simulate a checkout process.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+The Shoppers E-commerce App provides the following features:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Browse Products: Users can view a wide range of products available on the platform. Each product is categorized for easy navigation and selection.
 
-## Build
+2. Add to Cart: Users can add products to their cart while browsing. The cart keeps track of selected items and their quantities.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. Simulate Checkout: Although this app doesn't complete real transactions, users can simulate a checkout process to understand the flow. This includes reviewing items in the cart and a simulated payment step.
 
-## Running unit tests
+## Try It Out!
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To experience the Shoppers E-commerce App, access the live deployment at the following URL: [https://e-commerce-iamarcayna.vercel.app/](https://e-commerce-iamarcayna.vercel.app/)
 
-## Running end-to-end tests
+Note: The application requires an internet connection to access its functionalities.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Dependencies
 
-## Further help
+The Shoppers E-commerce App relies on the following dependencies:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- React: A JavaScript library for building user interfaces.
+- FakeStoreAPI: Provides mock data for products, categories, and more, enabling the app to simulate an e-commerce environment.
+
+## Installation
+
+To run the Shoppers E-commerce App locally, follow these steps:
+
+1. Clone the repository to your local machine:
+
+```bash
+git clone https://github.com/iamarcayna/e-commerce.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd e-commerce
+```
+
+3. Install the required dependencies:
+
+```bash
+npm install
+```
+
+4. Start the application:
+
+```bash
+ng serve
+```
+
+5. Open your web browser and visit http://localhost:4200 to access the E-commerce Application.
