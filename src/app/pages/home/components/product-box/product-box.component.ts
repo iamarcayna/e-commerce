@@ -12,15 +12,17 @@ export class ProductBoxComponent implements OnInit {
   @Input("category") category!: string;
 
   products!: Array<Product>;
+  loading: boolean = false;
 
   ngOnInit(): void {
-    console.log(this.category);
+    this.loading = true;
     this.storeService
       .getProducts(
         this.category.replace("_", " ").replace("", "").toLowerCase()
       )
       .subscribe((products) => {
         this.products = products;
+        this.loading = false;
       });
   }
 }
