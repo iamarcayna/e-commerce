@@ -22,20 +22,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   sections!: Array<SectionStatus>;
 
   ngOnInit(): void {
-    this.storeService.getAllCategories().subscribe((_categories) => {
-      this.categories = _categories;
-      this.sections = _categories.map((category) => {
-        let curStatus = false;
-        if (this.activeCategory === category) {
-          curStatus = true;
-        }
-        return {
-          url: category.replace(" ", "_").replace("'", "").toLowerCase(),
-          intersecting: curStatus,
-        };
-      });
-      this.sections.push({ url: "hero", intersecting: true });
-    });
+    this.subscriptions.push(
+      this.storeService.getAllCategories().subscribe((_categories) => {
+        this.categories = _categories;
+        this.sections = _categories.map((category) => {
+          let curStatus = false;
+          if (this.activeCategory === category) {
+            curStatus = true;
+          }
+          return {
+            url: category.replace(" ", "_").replace("'", "").toLowerCase(),
+            intersecting: curStatus,
+          };
+        });
+        this.sections.push({ url: "hero", intersecting: true });
+      })
+    );
 
     this.subscriptions.push(
       this.scrollService.activeSection.subscribe((section) => {

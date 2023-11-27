@@ -2,11 +2,12 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   inject,
 } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Cart, CartItem } from "src/app/models/cart.model";
 import { CartService } from "src/app/services/cart.service";
 import { ScrollService } from "src/app/services/scroll.service";
@@ -16,7 +17,7 @@ import { StoreService } from "src/app/services/store.service";
   selector: "app-header",
   templateUrl: "./header.component.html",
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   private cartService = inject(CartService);
   private storeService = inject(StoreService);
   private scrollService = inject(ScrollService);
@@ -27,10 +28,11 @@ export class HeaderComponent implements OnInit {
   itemsQuantity = 0;
   categories!: Array<string>;
   activeSection!: Observable<string>;
+  categorySubscription!: Subscription;
 
   ngOnInit(): void {
     this.activeSection = this.scrollService.activeSection;
-    this.storeService
+    this.categorySubscription = this.storeService
       .getAllCategories()
       .subscribe((_categories) => (this.categories = _categories));
     this.cartService.cart.subscribe((_cart) => {
@@ -39,6 +41,10 @@ export class HeaderComponent implements OnInit {
         .map((item) => item.quantity)
         .reduce((prev, cur) => prev + cur, 0);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.categorySubscription?.unsubscribe();
   }
 
   toggleDrawer() {

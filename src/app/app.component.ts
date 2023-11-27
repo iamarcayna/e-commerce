@@ -1,4 +1,10 @@
-import { Component, HostListener, OnInit, inject } from "@angular/core";
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  inject,
+} from "@angular/core";
 import { ModalService } from "./services/modal.service";
 import { Observable, Subscription } from "rxjs";
 
@@ -6,7 +12,7 @@ import { Observable, Subscription } from "rxjs";
   selector: "app-root",
   templateUrl: "./app.component.html",
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   private modalService = inject(ModalService);
   open: boolean = false;
   showModal!: boolean;
@@ -22,17 +28,18 @@ export class AppComponent implements OnInit {
     }
   }
 
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll() {
+    this.showModal = false;
+  }
+
   ngOnInit(): void {
     this.modalSubscription = this.modalService.showModal.subscribe((show) => {
       this.showModal = show;
-      if (show) {
-        document.body.classList.remove("overflow-y-auto");
-        document.body.classList.add("overflow-y-hidden");
-      } else {
-        document.body.classList.remove("overflow-y-hidden");
-        document.body.classList.add("overflow-y-auto");
-      }
     });
+  }
+  ngOnDestroy(): void {
+    this.modalSubscription?.unsubscribe();
   }
 
   drawerOpen() {

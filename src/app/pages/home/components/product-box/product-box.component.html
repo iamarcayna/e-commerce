@@ -1,8 +1,32 @@
 <div
-  class="h-full max-w-screen-2xl mx-auto px-2 md:px-4 lg:px-6 xl:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 lg:gap-6 xl:gap-8 py-20"
+  *ngIf="!loading; else loading_items"
+  class="h-full max-w-screen-2xl mx-auto px-2 md:px-4 lg:px-6 xl:px-8 mb-20 mt-5"
 >
-  <app-product
-    *ngFor="let product of products"
-    [product]="product"
-  ></app-product>
+  <p
+    class="text-lg md:text-xl lg:text-2xl font-gotham font-bold text-gray-800 my-4 md:my6 lg:my-10 capitalize px-2 py-1 border-l-8 border-l-emerald-500"
+  >
+    {{ category }}
+  </p>
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 lg:gap-6 xl:gap-8"
+  >
+    <app-product
+      *ngFor="let product of products"
+      [product]="product"
+    ></app-product>
+  </div>
 </div>
+<ng-template #loading_items>
+  <div class="h-[50vh] w-full flex items-center justify-center">
+    <div class="flex items-center justify-normal flex-col">
+      <div
+        class="animate-spin inline-block w-12 h-12 border-4 border-current border-t-transparent text-blue-600 rounded-full"
+        role="status"
+        aria-label="loading"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p class="text-blue-400 text-sm">Loading items...</p>
+    </div>
+  </div>
+</ng-template>

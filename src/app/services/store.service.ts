@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Injectable, inject } from "@angular/core";
+import { Observable, Subject, of } from "rxjs";
 import { Product } from "../models/product.model";
 
 const STORE_BASE_URL = "https://fakestoreapi.com";
@@ -9,7 +9,16 @@ const STORE_BASE_URL = "https://fakestoreapi.com";
   providedIn: "root",
 })
 export class StoreService {
-  constructor(private httpClient: HttpClient) {}
+  private httpClient = inject(HttpClient);
+  categories: Subject<Array<string>> = new Subject<Array<string>>();
+
+  constructor() {
+    this.httpClient
+      .get<Array<string>>(`${STORE_BASE_URL}/products/categories`)
+      .subscribe((categories) => {
+        this.categories.next(categories);
+      });
+  }
 
   getProducts(
     category = "",
@@ -22,9 +31,7 @@ export class StoreService {
       }?sort=${sort}&limit=${limit}`
     );
   }
-  getAllCategories(): Observable<Array<string>> {
-    return this.httpClient.get<Array<string>>(
-      `${STORE_BASE_URL}/products/categories`
-    );
+  getAllCategories(): Subject<Array<string>> {
+    return this.categories;
   }
 }
