@@ -1,21 +1,50 @@
-<section id="hero" class="h-[calc(100vh-80px)] flex max-w-screen-2xl mx-auto">
-  <div class="flex-1 h-full flex items-center justify-center">
-    <div>
-      <p>Welcome to <span>Shoppers</span>!</p>
-      <p>Discover Endless Possibilities.</p>
-      <p>
+<section
+  appIntersecting
+  [isContinuous]="true"
+  (isIntersecting)="onIntersect($event, 'hero')"
+  id="hero"
+  class="h-[70vh] flex items-center justify-center bg-hero bg-center bg-no-repeat bg-cover bg-fixed scroll-mt-20"
+>
+  <div
+    class="h-full flex items-center justify-center max-w-screen-2xl mx-auto px-2 md:px-4 lg:px-6 xl:px-8"
+  >
+    <div class="flex flex-col justify-center items-center">
+      <p
+        class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white text-center font-extrabold font-gotham tracking-widest"
+      >
+        Discover endless
+      </p>
+      <p
+        class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-amber-500 text-center font-extrabold font-gotham tracking-widest mt-1 lg:mt-3"
+      >
+        Possibilities.
+      </p>
+      <p
+        class="md:text-lg lg:text-xl text-gray-300 text-center mt-4 lg:mt-6 max-w-2xl"
+      >
         Uncover a world of quality and variety at your fingertips. From tech
         gadgets to fashion essentials, find everything you need in one place.
       </p>
-      <button>Explore Now</button>
+      <button
+        class="px-4 py-2 rounded-full text-white bg-emerald-600 mt-6 lg:mt-8 border-2 border-transparent hover:border-emerald-500"
+      >
+        Explore Now
+      </button>
     </div>
   </div>
-  <div class="flex-1 h-full flex items-center justify-center"></div>
 </section>
 <section
+  appIntersecting
+  [isContinuous]="true"
+  (isIntersecting)="
+    onIntersect(
+      $event,
+      category.replace(' ', '_').replace('\'', '').toLowerCase()
+    )
+  "
   *ngFor="let category of categories"
-  [id]="category"
-  class="h-auto max-w-screen-2xl mx-auto"
+  [id]="category.replace(' ', '_').replace('\'', '').toLowerCase()"
+  class="h-auto max-w-screen-2xl mx-auto scroll-mt-20"
 >
-  {{ category }}
+  <app-product-box [category]="category"></app-product-box>
 </section>
