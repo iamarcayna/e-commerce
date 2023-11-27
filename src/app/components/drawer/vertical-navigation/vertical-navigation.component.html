@@ -14,7 +14,10 @@
   >
     <span
       *ngIf="activeSection | async as active"
-      [ngClass]="{ 'text-gray-100': active === category }"
+      [ngClass]="{
+        'text-gray-100':
+          active === category.replace(' ', '_').replace('\'', '').toLowerCase()
+      }"
       class="capitalize whitespace-nowrap"
       >{{ category }}</span
     >

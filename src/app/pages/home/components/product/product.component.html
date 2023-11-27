@@ -1,0 +1,43 @@
+<div class="bg-white shadow-md p-3 md:p-4 rounded-xl h-full">
+  <div class="flex items-center justify-center mt-4">
+    <img
+      [src]="product.image"
+      [alt]="product.title"
+      class="h-32 md:h-40 lg:h-56 aspect-auto"
+    />
+  </div>
+  <p class="font-gotham font-semibold line-clamp-1 mt-4 text-blue-500">
+    {{ product.title }}
+  </p>
+  <div class="flex items-center gap-1 mt-1">
+    <img
+      *ngFor="let star of starRating"
+      [src]="
+        star
+          ? '../../../../../assets/images/star.svg'
+          : '../../../../../assets/images/star-empty.svg'
+      "
+      alt="star"
+      class="pointer-events-none h-4 w-4"
+    />
+    <p>&lpar;{{ product.rating.count }}&rpar;</p>
+  </div>
+  <div>
+    <p class="text-sm text-gray-400 line-clamp-1 mt-2">
+      {{ product.description }}
+    </p>
+    <button (click)="showMoreDetail()" class="text-sm text-blue-500 pr-3 py-1">
+      Read more
+    </button>
+  </div>
+
+  <p class="text-xl font-bold my-4">
+    {{ product.price | currency }}
+  </p>
+  <button
+    (click)="onAddToCart()"
+    class="uppercase py-2 px-4 rounded-lg bg-gradient-to-r from-orange-400 to-yellow-500 text-gray-100 font-semibold w-full text-sm"
+  >
+    Add to cart
+  </button>
+</div>

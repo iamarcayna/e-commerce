@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, inject } from "@angular/core";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs";
 import { ScrollService } from "src/app/services/scroll.service";
 import { StoreService } from "src/app/services/store.service";
 
@@ -13,12 +13,11 @@ export class VerticalNavigationComponent implements OnInit {
 
   @Output() close = new EventEmitter<any>();
   categories!: Array<string>;
-  categorySubscription!: Subscription;
   activeSection!: Observable<string>;
 
   ngOnInit(): void {
     this.activeSection = this.scrollService.activeSection;
-    this.categorySubscription = this.storeService
+    this.storeService
       .getAllCategories()
       .subscribe((_categories) => (this.categories = _categories));
   }

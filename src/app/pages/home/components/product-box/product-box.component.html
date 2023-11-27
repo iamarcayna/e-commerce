@@ -1,0 +1,8 @@
+<div
+  class="h-full max-w-screen-2xl mx-auto px-2 md:px-4 lg:px-6 xl:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 lg:gap-6 xl:gap-8 py-20"
+>
+  <app-product
+    *ngFor="let product of products"
+    [product]="product"
+  ></app-product>
+</div>
