@@ -25,7 +25,7 @@ export class VerticalNavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activeSection = this.scrollService.activeSection;
-    this.categorySubscription = this.storeService
+    this.storeService
       .getAllCategories()
       .subscribe((_categories) => (this.categories = _categories));
   }

@@ -76,4 +76,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     return intersect.length === 1 ? intersect[0] : null;
   }
+
+  scrollIntoView(section: string) {
+    this.scrollService.scrollIntoView(section);
+  }
 }

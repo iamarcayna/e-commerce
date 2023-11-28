@@ -6,6 +6,7 @@ export interface Product {
   description: string;
   image: string;
   rating: ProductRating;
+  onCart: boolean;
 }
 
 export interface ProductRating {

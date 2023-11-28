@@ -3,14 +3,14 @@
 >
   <div class="flex items-center justify-between gap-4 max-w-screen-2xl mx-auto">
     <div class="flex items-center gap-3 flex-grow">
-      <a
-        routerLink="home"
+      <button
+        (click)="scrollIntoView('hero')"
         class="hidden text-2xl text-amber-600 px-4 flex-shrink-0 md:flex items-center justify-center italic font-semibold font-dancing-script"
       >
         <span>shoppers</span>
         <span class="text-emerald-600">.</span>
         <span class="text-gray-600 text-sm translate-y-1/2">com</span>
-      </a>
+      </button>
       <button
         (click)="toggleDrawer()"
         class="p-3 rounded-full flex-shrink-0 md:hidden hover:bg-gray-100"
@@ -21,7 +21,9 @@
           class="h-6 w-6"
         />
       </button>
-      <div
+      <form
+        (ngSubmit)="onSearch()"
+        [formGroup]="searchForm"
         class="flex items-center justify-start bg-gray-100 rounded-lg py-2 px-3 flex-grow"
       >
         <img
@@ -30,12 +32,15 @@
           class="h-6 w-6"
         />
         <input
+          (keyup)="onKeyUp()"
+          formControlName="search"
           type="text"
           id="text"
           placeholder="Search shop..."
-          class="bg-transparent px-4 py-1 outline-none w-full"
+          class="bg-transparent px-4 py-1 outline-none w-full text-gray-900"
+          autocomplete="off"
         />
-      </div>
+      </form>
       <div
         *ngIf="activeSection | async as active"
         class="items-center justify-evenly overflow-hidden flex-grow hidden md:flex"

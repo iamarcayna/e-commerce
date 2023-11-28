@@ -26,12 +26,17 @@
         gadgets to fashion essentials, find everything you need in one place.
       </p>
       <button
+        *ngIf="categories && categories.length !== 0"
+        (click)="scrollIntoView(categories[0])"
         class="px-4 py-2 rounded-full text-white bg-emerald-600 mt-6 lg:mt-8 border-2 border-transparent hover:border-emerald-500"
       >
         Explore Now
       </button>
     </div>
   </div>
+</section>
+<section id="search" class="h-auto max-w-screen-2xl mx-auto scroll-mt-20">
+  <app-product-box [category]="'search'"></app-product-box>
 </section>
 <section
   appIntersecting

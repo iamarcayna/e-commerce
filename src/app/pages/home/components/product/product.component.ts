@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  inject,
-} from "@angular/core";
+import { Component, Input, OnInit, inject } from "@angular/core";
 import { Product } from "src/app/models/product.model";
 import { CartService } from "src/app/services/cart.service";
 import { ModalService } from "src/app/services/modal.service";
@@ -19,7 +12,9 @@ export class ProductComponent implements OnInit {
   private modalService = inject(ModalService);
 
   @Input("product") product!: Product;
+
   starRating: Array<boolean> = [];
+  loading: boolean = true;
 
   ngOnInit(): void {
     let rating =
@@ -37,15 +32,23 @@ export class ProductComponent implements OnInit {
   }
 
   onAddToCart() {
-    this.cartService.addToCart({
-      name: this.product.title,
-      price: this.product.price,
-      quantity: 1,
-      id: this.product.id,
-    });
+    if (this.product.onCart) {
+      // TODO: Open cart modal.
+    } else {
+      this.cartService.addToCart({
+        name: this.product.title,
+        price: this.product.price,
+        quantity: 1,
+        id: this.product.id,
+      });
+    }
   }
 
   showMoreDetail() {
     this.modalService.showModal.next(true);
+  }
+
+  onLoad() {
+    this.loading = false;
   }
 }
