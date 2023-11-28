@@ -1,10 +1,18 @@
 <div class="bg-white shadow-md p-3 md:p-4 rounded-xl h-full">
   <div class="flex items-center justify-center mt-4">
     <img
+      [hidden]="loading"
+      (load)="onLoad()"
       [src]="product.image"
       [alt]="product.title"
       class="h-32 md:h-40 lg:h-56 aspect-auto"
     />
+    <div
+      class="h-32 md:h-40 lg:h-56 w-full flex items-center justify-center animate-pulse bg-gray-200 text-xs text-gray-400"
+      *ngIf="loading"
+    >
+      Loading image...
+    </div>
   </div>
   <p class="font-gotham font-semibold line-clamp-1 mt-4 text-blue-500">
     {{ product.title }}
@@ -35,9 +43,14 @@
     {{ product.price | currency }}
   </p>
   <button
+    [ngClass]="
+      product.onCart
+        ? 'bg-gray-400'
+        : 'bg-gradient-to-r from-orange-400 to-yellow-500'
+    "
     (click)="onAddToCart()"
-    class="uppercase py-2 px-4 rounded-lg bg-gradient-to-r from-orange-400 to-yellow-500 text-gray-100 font-semibold w-full text-sm"
+    class="uppercase py-2 px-4 rounded-lg text-gray-100 font-semibold w-full text-sm"
   >
-    Add to cart
+    {{ product.onCart ? "View in cart" : "Add to cart" }}
   </button>
 </div>

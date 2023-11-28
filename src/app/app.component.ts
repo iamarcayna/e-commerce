@@ -1,22 +1,15 @@
-import {
-  Component,
-  HostListener,
-  OnDestroy,
-  OnInit,
-  inject,
-} from "@angular/core";
+import { Component, HostListener, OnInit, inject } from "@angular/core";
 import { ModalService } from "./services/modal.service";
-import { Observable, Subscription } from "rxjs";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   private modalService = inject(ModalService);
+
   open: boolean = false;
   showModal!: boolean;
-  modalSubscription!: Subscription;
 
   @HostListener("window:resize", ["$event"])
   onWindowResize(event: Event) {
@@ -34,12 +27,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.modalSubscription = this.modalService.showModal.subscribe((show) => {
+    this.modalService.showModal.subscribe((show) => {
       this.showModal = show;
     });
-  }
-  ngOnDestroy(): void {
-    this.modalSubscription?.unsubscribe();
   }
 
   drawerOpen() {
