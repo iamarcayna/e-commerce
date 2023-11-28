@@ -6,7 +6,7 @@
     <p
       class="text-lg md:text-xl lg:text-2xl font-gotham font-bold text-gray-800 my-4 md:my6 lg:my-10 px-2 py-1 border-l-8 border-l-emerald-500"
     >
-      {{ "Search results for " + searchParam }}
+      {{ 'Search results for "' + searchParam + '"' }}
     </p>
     <div
       *ngIf="products && products.length !== 0"
