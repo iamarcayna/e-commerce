@@ -2,7 +2,10 @@
   class="px-2 py-4 md:px-4 lg:px-6 xl:px-8 shadow-lg bg-white sticky top-0 z-50 left-0 w-full"
 >
   <div class="flex items-center justify-between gap-4 max-w-screen-2xl mx-auto">
-    <div class="flex items-center gap-3 flex-grow">
+    <div
+      *ngIf="activeSection | async as active"
+      class="flex items-center gap-3 flex-grow"
+    >
       <button
         (click)="scrollIntoView('hero')"
         class="hidden text-2xl text-amber-600 px-4 flex-shrink-0 md:flex items-center justify-center italic font-semibold font-dancing-script"
@@ -24,7 +27,10 @@
       <form
         (ngSubmit)="onSearch()"
         [formGroup]="searchForm"
-        class="flex items-center justify-start bg-gray-100 rounded-lg py-2 px-3 flex-grow"
+        [ngClass]="
+          active === 'search' ? 'border-orange-500' : 'border-gray-200'
+        "
+        class="flex items-center justify-start bg-gray-100 rounded-lg py-2 px-3 flex-grow border transition-colors focus:border-orange-500 hover:border-orange-500"
       >
         <img
           src="../../../assets/images/search.svg"
@@ -42,7 +48,6 @@
         />
       </form>
       <div
-        *ngIf="activeSection | async as active"
         class="items-center justify-evenly overflow-hidden flex-grow hidden md:flex"
       >
         <button
@@ -54,13 +59,14 @@
               ? 'text-amber-500'
               : 'text-gray-500'
           "
-          class="capitalize truncate hover:text-amber-500 font-gotham font-semibold text-sm mx-2"
+          class="capitalize truncate hover:text-amber-500 font-gotham font-semibold text-sm mx-2 transition-colors"
         >
           {{ category }}
         </button>
       </div>
     </div>
-    <button
+    <a
+      routerLink="cart"
       class="rounded-full p-3 hover:bg-gray-100 text-gray-200 flex-shrink-0 relative"
     >
       <img
@@ -73,6 +79,6 @@
         class="absolute top-0 right-0 translate-x-1 -translate-y-1 rounded-full bg-orange-500 text-xs px-2 py-1 text-gray-100 text-center"
         >{{ itemsQuantity }}</span
       >
-    </button>
+    </a>
   </div>
 </div>

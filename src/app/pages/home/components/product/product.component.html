@@ -48,7 +48,7 @@
         ? 'bg-gray-400'
         : 'bg-gradient-to-r from-orange-400 to-yellow-500'
     "
-    (click)="onAddToCart()"
+    (click)="product.onCart ? onViewCart() : onAddToCart()"
     class="uppercase py-2 px-4 rounded-lg text-gray-100 font-semibold w-full text-sm"
   >
     {{ product.onCart ? "View in cart" : "Add to cart" }}

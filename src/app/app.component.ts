@@ -1,5 +1,13 @@
-import { Component, HostListener, OnInit, inject } from "@angular/core";
+import {
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+  inject,
+} from "@angular/core";
 import { ModalService } from "./services/modal.service";
+import { ContainerDirective } from "./directives/container.directive";
+import { SnackbarService } from "./services/snack.service";
 
 @Component({
   selector: "app-root",
@@ -7,6 +15,10 @@ import { ModalService } from "./services/modal.service";
 })
 export class AppComponent implements OnInit {
   private modalService = inject(ModalService);
+  private snackBarService = inject(SnackbarService);
+
+  @ViewChild(ContainerDirective, { static: true })
+  snackbarContainer!: ContainerDirective;
 
   open: boolean = false;
   showModal!: boolean;
@@ -17,7 +29,7 @@ export class AppComponent implements OnInit {
     if ((event.target as Window).innerWidth >= 768) {
       this.open = false;
       document.body.classList.remove("overflow-y-hidden");
-      document.body.classList.add("overflow-y-auto");
+      document.body.classList.add("overflow-y-scroll");
     }
   }
 
@@ -30,18 +42,19 @@ export class AppComponent implements OnInit {
     this.modalService.showModal.subscribe((show) => {
       this.showModal = show;
     });
+    this.snackBarService.setContainer(this.snackbarContainer);
   }
 
   drawerOpen() {
     this.showModal = false;
     this.open = true;
-    document.body.classList.remove("overflow-y-auto");
+    document.body.classList.remove("overflow-y-scroll");
     document.body.classList.add("overflow-y-hidden");
   }
 
   drawerClose() {
     this.open = false;
     document.body.classList.remove("overflow-y-hidden");
-    document.body.classList.add("overflow-y-auto");
+    document.body.classList.add("overflow-y-scroll");
   }
 }

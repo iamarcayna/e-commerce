@@ -17,8 +17,9 @@ import { IntersectingDirective } from "./directives/intersecting.directive";
 import { ProductBoxComponent } from "./pages/home/components/product-box/product-box.component";
 import { ProductComponent } from "./pages/home/components/product/product.component";
 import { ProductMoreDetailComponent } from "./pages/home/components/product-more-detail/product-more-detail.component";
-import { CheckoutCartComponent } from "./pages/home/components/checkout-cart/checkout-cart.component";
+import { CheckoutCartComponent } from "./pages/checkout-cart/checkout-cart.component";
 import { ModalService } from "./services/modal.service";
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ModalService } from "./services/modal.service";
     ProductComponent,
     ProductMoreDetailComponent,
     CheckoutCartComponent,
+    SnackbarComponent,
   ],
   imports: [
     BrowserModule,
