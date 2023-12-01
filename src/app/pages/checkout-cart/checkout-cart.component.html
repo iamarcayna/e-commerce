@@ -1,0 +1,389 @@
+<div
+  class="flex-col-reverse md:flex-row flex items-center justify-center gap-10 max-w-screen-2xl mx-auto mt-10 px-2 md:px-4 lg:px-6 xl:px-8"
+>
+  <div
+    class="flex-1 h-full p-5 rounded-lg shadow-md w-full bg-white overflow-hidden self-start"
+  >
+    <p class="text-2xl font-bold mb-10 text-gray-800">Shopping Cart</p>
+    <div
+      [ngClass]="cart.items.length !== 0 ? 'h-[370px]' : 'h-auto'"
+      class="overflow-auto shadow w-full"
+    >
+      <table class="w-full">
+        <thead class="sticky top-0 bg-amber-600">
+          <th class="text-left text-gray-200 text-sm py-3 pl-5">Product</th>
+          <th class="text-center text-gray-200 text-sm py-3">Quantity</th>
+          <th class="text-center text-gray-200 text-sm py-3">Total Price</th>
+          <th class="text-center text-gray-200 text-sm py-3">Action</th>
+        </thead>
+        <tr
+          *ngFor="let item of cart.items"
+          class="h-[150px] hover:bg-gray-50 rounded-xl border-b border-b-gray-200"
+        >
+          <td class="w-4/12 min-w-[270px]">
+            <div class="flex items-center gap-4 pl-4">
+              <img
+                [src]="item.image"
+                [alt]="item.name"
+                class="h-24 aspect-auto"
+              />
+              <p class="h-full line-clamp-4 font-semibold text-gray-700">
+                {{ item.name }}
+              </p>
+            </div>
+          </td>
+          <td class="w-2/12 min-w-[180px]">
+            <div class="flex items-center justify-center gap-3">
+              <button
+                (click)="removeQuantity(item)"
+                class="rounded-fullfont-bold p-2 hover:bg-gray-100 rounded-full flex-shrink-0"
+              >
+                <img
+                  src="../../../../../assets/images/minus.svg"
+                  alt="remove item"
+                  class="h-5 w-5"
+                />
+              </button>
+              <p class="text-center font-bold px-4 py-3 text-gray-700">
+                {{ item.quantity }}
+              </p>
+              <button
+                (click)="addQuantity(item)"
+                class="rounded-fullfont-bold p-2 hover:bg-gray-100 rounded-full flex-shrink-0"
+              >
+                <img
+                  src="../../../../../assets/images/add.svg"
+                  alt="remove item"
+                  class="h-5 w-5"
+                />
+              </button>
+            </div>
+          </td>
+          <td class="w-2/12 min-w-[180px] text-center">
+            <p class="font-bold px-3 text-gray-700">
+              {{ item.price | currency }}
+            </p>
+          </td>
+          <td class="w-1/12 min-w-[70px]">
+            <div class="flex items-center justify-center">
+              <button
+                (click)="removeToCart(item)"
+                class="rounded-full text-orange-400 hover:text-orange-500 p-3 hover:bg-gray-100"
+                aria-label="close drawer"
+              >
+                <!-- close icon -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 24 24"
+                  class="w-4 h-4"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="cart.items.length === 0">
+          <td class="w-4/12 min-w-[270px]">
+            <p class="p-4 text-gray-500 font-semibold">Your cart is empty.</p>
+          </td>
+          <td class="w-2/12 min-w-[180px]"></td>
+          <td class="w-2/12 min-w-[180px] text-center"></td>
+          <td class="w-1/12 min-w-[70px]"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex items-center justify-between gap-5 mt-7 flex-wrap-reverse">
+      <div class="flex items-center justify-center">
+        <button
+          (click)="goShopping()"
+          class="flex items-center justify-center px-5 py-2 rounded-full hover:bg-emerald-50 border border-emerald-400"
+        >
+          <img
+            src="../../../../../assets/images/chevron-right.svg"
+            alt="back to shopping"
+            class="h-6 w-6"
+          />
+          <p class="text-sm font-semibold text-emerald-400">
+            Continue Shopping
+          </p>
+        </button>
+      </div>
+      <div class="my-2 flex-shrink-0 flex-grow">
+        <div class="flex items-center justify-end gap-5">
+          <p class="text-gray-600 font-bold">Total:</p>
+          <p
+            class="text-lg font-bold text-orange-500 bg-gray-100 rounded-lg px-4 py-2"
+          >
+            {{ total | currency }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-80 h-full bg-slate-800 p-5 rounded-lg shadow-md">
+    <p class="text-2xl font-bold mb-10 text-gray-300">Payment Info</p>
+    <form [formGroup]="checkoutForm" (ngSubmit)="onCheckOut()">
+      <div class="mb-7">
+        <p class="text-gray-400 font-semibold text-sm mb-2">Payment Method:</p>
+        <div class="flex items-center">
+          <input
+            formControlName="method"
+            type="radio"
+            name="method"
+            value="card"
+            id="method-1"
+            class="accent-amber-600 cursor-pointer"
+          />
+          <label
+            for="method-1"
+            class="font-semibold pl-3 text-sm text-gray-300 gap-2 flex items-center cursor-pointer"
+          >
+            <img
+              class="w-7 aspect-auto pointer-events-none"
+              src="../../../../../assets/images/master-card.svg"
+              alt="master card"
+            />
+            <span>Credit Card</span>
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            formControlName="method"
+            type="radio"
+            name="method"
+            value="paypal"
+            id="method-2"
+            class="accent-amber-600 cursor-pointer"
+          />
+          <label
+            for="method-2"
+            class="font-semibold pl-3 text-sm text-gray-300 gap-2 flex items-center cursor-pointer"
+          >
+            <img
+              class="w-7 aspect-auto pointer-events-none"
+              src="../../../../../assets/images/paypal.svg"
+              alt="paypal"
+            />
+            <span>Paypal</span>
+          </label>
+        </div>
+      </div>
+      <div class="mb-7 relative">
+        <p class="text-gray-400 font-semibold text-sm mb-2">Name On Card:</p>
+        <input
+          formControlName="name"
+          type="text"
+          name="name"
+          autocomplete="off"
+          [ngClass]="
+            checkoutForm.get('name')?.hasError('required') &&
+            !checkoutForm.get('name')?.pristine
+              ? 'border-red-500 '
+              : 'border-slate-600 hover:border-orange-300 focus:border-orange-300'
+          "
+          class="w-full outline-none rounded-lg px-4 py-2 bg-slate-700 text-gray-300 font-semibold capitalize border transition-colors"
+        />
+        <p
+          *ngIf="
+            checkoutForm.get('name')?.hasError('required') &&
+            !checkoutForm.get('name')?.pristine
+          "
+          class="text-red-400 text-xs absolute -bottom-px left-0 translate-y-full"
+        >
+          Required
+        </p>
+      </div>
+      <div class="mb-7 relative">
+        <p class="text-gray-400 font-semibold text-sm mb-2">Card Number:</p>
+        <div class="flex items-center gap-4 md:gap-2">
+          <input
+            formControlName="card_1"
+            type="text"
+            name="number"
+            autocomplete="off"
+            maxlength="4"
+            [ngClass]="
+              checkoutForm.get('card_1')?.errors &&
+              !checkoutForm.get('card_1')?.pristine &&
+              !checkoutForm.get('card_2')?.pristine &&
+              !checkoutForm.get('card_3')?.pristine &&
+              !checkoutForm.get('card_4')?.pristine
+                ? 'border-red-500 '
+                : 'border-slate-600 hover:border-orange-300 focus:border-orange-300'
+            "
+            class="w-full outline-none rounded-lg px-3 py-2 bg-slate-700 text-gray-300 text-center font-semibold border transition-colors"
+          />
+          <input
+            formControlName="card_2"
+            type="text"
+            name="number"
+            autocomplete="off"
+            maxlength="4"
+            [ngClass]="
+              checkoutForm.get('card_2')?.errors &&
+              !checkoutForm.get('card_1')?.pristine &&
+              !checkoutForm.get('card_2')?.pristine &&
+              !checkoutForm.get('card_3')?.pristine &&
+              !checkoutForm.get('card_4')?.pristine
+                ? 'border-red-500 '
+                : 'border-slate-600 hover:border-orange-300 focus:border-orange-300'
+            "
+            class="w-full outline-none rounded-lg px-3 py-2 bg-slate-700 text-gray-300 text-center font-semibold border transition-colors"
+          />
+          <input
+            formControlName="card_3"
+            type="text"
+            name="number"
+            autocomplete="off"
+            maxlength="4"
+            [ngClass]="
+              checkoutForm.get('card_3')?.errors &&
+              !checkoutForm.get('card_1')?.pristine &&
+              !checkoutForm.get('card_2')?.pristine &&
+              !checkoutForm.get('card_3')?.pristine &&
+              !checkoutForm.get('card_4')?.pristine
+                ? 'border-red-500 '
+                : 'border-slate-600 hover:border-orange-300 focus:border-orange-300'
+            "
+            class="w-full outline-none rounded-lg px-3 py-2 bg-slate-700 text-gray-300 text-center font-semibold border transition-colors"
+          />
+          <input
+            formControlName="card_4"
+            type="text"
+            name="number"
+            autocomplete="off"
+            maxlength="4"
+            [ngClass]="
+              checkoutForm.get('card_4')?.errors &&
+              !checkoutForm.get('card_1')?.pristine &&
+              !checkoutForm.get('card_2')?.pristine &&
+              !checkoutForm.get('card_3')?.pristine &&
+              !checkoutForm.get('card_4')?.pristine
+                ? 'border-red-500 '
+                : 'border-slate-600 hover:border-orange-300 focus:border-orange-300'
+            "
+            class="w-full outline-none rounded-lg px-3 py-2 bg-slate-700 text-gray-300 text-center font-semibold border transition-colors"
+          />
+          <p
+            *ngIf="
+              (checkoutForm.get('card_1')?.errors ||
+                checkoutForm.get('card_2')?.errors ||
+                checkoutForm.get('card_3')?.errors ||
+                checkoutForm.get('card_4')?.errors) &&
+              !checkoutForm.get('card_1')?.pristine &&
+              !checkoutForm.get('card_2')?.pristine &&
+              !checkoutForm.get('card_3')?.pristine &&
+              !checkoutForm.get('card_4')?.pristine
+            "
+            class="text-red-400 text-xs absolute -bottom-px left-0 translate-y-full"
+          >
+            Invalid Card Number
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 md:gap-2">
+        <div class="flex-1 relative">
+          <p class="text-gray-400 font-semibold text-sm mb-2 truncate">
+            Expiration Date:
+          </p>
+          <div class="flex items-center gap-4 md:gap-2">
+            <input
+              [ngClass]="
+                checkoutForm.get('expire_month')?.errors &&
+                !checkoutForm.get('expire_month')?.pristine &&
+                !checkoutForm.get('expire_year')?.pristine
+                  ? 'border-red-500 '
+                  : 'border-slate-600 hover:border-orange-300 focus:border-orange-300'
+              "
+              class="w-full md:w-16 outline-none rounded-lg px-3 py-2 bg-slate-700 text-gray-300 text-center font-semibold placeholder-gray-500 focus:placeholder-opacity-0 border"
+              formControlName="expire_month"
+              type="text"
+              name="expire-m"
+              autocomplete="off"
+              placeholder="MM"
+              maxlength="2"
+            />
+            <input
+              [ngClass]="
+                checkoutForm.get('expire_year')?.errors &&
+                !checkoutForm.get('expire_year')?.pristine &&
+                !checkoutForm.get('expire_month')?.pristine
+                  ? 'border-red-500 '
+                  : 'border-slate-600 hover:border-orange-300 focus:border-orange-300'
+              "
+              class="w-full md:w-16 outline-none rounded-lg px-3 py-2 bg-slate-700 text-gray-300 text-center font-semibold placeholder-gray-500 focus:placeholder-opacity-0 border"
+              formControlName="expire_year"
+              type="text"
+              name="expire-y"
+              maxlength="4"
+              autocomplete="off"
+              placeholder="YYYY"
+            />
+            <p
+              *ngIf="
+                (checkoutForm.get('expire_year')?.errors ||
+                  checkoutForm.get('expire_month')?.errors) &&
+                !checkoutForm.get('expire_year')?.pristine &&
+                !checkoutForm.get('expire_month')?.pristine
+              "
+              class="text-red-400 text-xs absolute -bottom-px left-0 translate-y-full"
+            >
+              Invalid Date
+            </p>
+          </div>
+        </div>
+        <div class="flex-1 md:flex-none relative">
+          <p class="text-gray-400 font-semibold text-sm mb-2">CVV:</p>
+          <input
+            [ngClass]="
+              checkoutForm.get('cvv')?.errors &&
+              !checkoutForm.get('cvv')?.pristine
+                ? 'border-red-500 '
+                : 'border-slate-600 hover:border-orange-300 focus:border-orange-300'
+            "
+            formControlName="cvv"
+            name="cvv"
+            class="w-10"
+            type="text"
+            maxlength="3"
+            class="w-full md:w-16 outline-none rounded-lg px-3 py-2 bg-slate-700 text-gray-300 text-center font-semibold border"
+          />
+          <p
+            *ngIf="
+              checkoutForm.get('cvv')?.errors &&
+              !checkoutForm.get('cvv')?.pristine
+            "
+            class="text-red-400 text-xs absolute -bottom-px left-0 translate-y-full"
+          >
+            Invalid CVV
+          </p>
+        </div>
+      </div>
+      <button
+        [ngClass]="
+          checkoutForm.invalid
+            ? 'bg-slate-300 text-gray-400 border-slate-400'
+            : 'bg-amber-500 text-gray-100 border-transparent'
+        "
+        class="py-2 px-5 rounded-lg font-semibold w-full mt-10 border flex items-center justify-center"
+        type="submit"
+      >
+        <span
+          *ngIf="sendingMessage"
+          class="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-gray-200 rounded-full"
+          role="status"
+          aria-label="sending"
+        >
+          <span class="sr-only">...</span>
+        </span>
+        <span *ngIf="!sendingMessage"> Check Out </span>
+      </button>
+    </form>
+  </div>
+</div>

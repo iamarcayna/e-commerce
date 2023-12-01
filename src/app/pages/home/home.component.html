@@ -3,7 +3,7 @@
   [isContinuous]="true"
   (isIntersecting)="onIntersect($event, 'hero')"
   id="hero"
-  class="h-[70vh] flex items-center justify-center bg-hero bg-center bg-no-repeat bg-cover bg-fixed scroll-mt-20"
+  class="h-[70vh] flex items-center justify-center bg-hero bg-center bg-no-repeat bg-cover bg-fixed scroll-mt-24"
 >
   <div
     class="h-full flex items-center justify-center max-w-screen-2xl mx-auto px-2 md:px-4 lg:px-6 xl:px-8"
@@ -35,7 +35,13 @@
     </div>
   </div>
 </section>
-<section id="search" class="h-auto max-w-screen-2xl mx-auto scroll-mt-20">
+<section
+  appIntersecting
+  [isContinuous]="true"
+  (isIntersecting)="onIntersect($event, 'search')"
+  id="search"
+  class="h-auto max-w-screen-2xl mx-auto scroll-mt-24"
+>
   <app-product-box [category]="'search'"></app-product-box>
 </section>
 <section
@@ -49,7 +55,10 @@
   "
   *ngFor="let category of categories"
   [id]="category.replace(' ', '_').replace('\'', '').toLowerCase()"
-  class="h-auto max-w-screen-2xl mx-auto scroll-mt-20"
+  class="h-auto max-w-screen-2xl mx-auto scroll-mt-24"
 >
-  <app-product-box [category]="category"></app-product-box>
+  <app-product-box
+    (loaded)="onLoad($event)"
+    [category]="category"
+  ></app-product-box>
 </section>

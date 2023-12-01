@@ -7,7 +7,16 @@ import { CartItem, Cart } from "../models/cart.model";
 })
 export class CartService {
   cart = new BehaviorSubject<Cart>({ items: [] });
-  constructor() {}
+
+  constructor() {
+    const item = localStorage.getItem("cart");
+
+    if (item) {
+      this.cart = new BehaviorSubject<Cart>({
+        items: [...JSON.parse(item)],
+      });
+    }
+  }
 
   addToCart(item: CartItem): void {
     const items = [...this.cart.value.items];
@@ -20,6 +29,7 @@ export class CartService {
       items.push(item);
     }
     this.cart.next({ items });
+    localStorage.setItem("cart", JSON.stringify(items));
   }
 
   getTotal(items: Array<CartItem>): number {
@@ -30,6 +40,7 @@ export class CartService {
 
   emptyCart(): void {
     this.cart.next({ items: [] });
+    localStorage.setItem("cart", JSON.stringify([]));
   }
 
   removeFromCart(item: CartItem): void {
@@ -37,6 +48,7 @@ export class CartService {
       (_item) => _item.id !== item.id
     );
     this.cart.next({ items: filteredItems });
+    localStorage.setItem("cart", JSON.stringify(filteredItems));
   }
 
   removeQuantity(item: CartItem): void {
@@ -50,6 +62,7 @@ export class CartService {
     });
 
     this.cart.next({ items: filteredItems });
+    localStorage.setItem("cart", JSON.stringify(filteredItems));
     if (itemForRemoval) {
       this.removeFromCart(itemForRemoval);
     }

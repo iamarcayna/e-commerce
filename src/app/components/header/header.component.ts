@@ -49,8 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       search: new FormControl(""),
     });
     this.activatedRoute.queryParams.subscribe((param) => {
-      if (param["search"]) {
-        this.searchForm.get("search")?.patchValue(param["search"]);
+      if (param["s"]) {
+        this.searchForm.get("search")?.patchValue(param["s"]);
       }
     });
   }
@@ -69,14 +69,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSearch() {
     if (this.searchForm.get("search")?.value.trim() !== "") {
-      this.router.navigate(["/home"], { queryParams: this.searchForm.value });
+      this.router.navigate(["/home"], {
+        queryParams: {
+          s: this.searchForm.get("search")?.value,
+        },
+      });
     }
   }
 
   onKeyUp() {
     if (this.searchForm.get("search")?.value.trim() === "") {
       this.router.navigate(["/home"], {
-        queryParams: { search: null },
+        queryParams: { s: null },
         queryParamsHandling: "merge",
       });
     }
