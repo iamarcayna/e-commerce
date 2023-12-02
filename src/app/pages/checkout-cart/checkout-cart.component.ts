@@ -22,6 +22,7 @@ export class CheckoutCartComponent implements OnInit, OnDestroy {
   cart!: Cart;
   total: number = 0;
   sendingMessage: boolean = false;
+  loading: boolean = true;
 
   ngOnInit(): void {
     this.checkoutForm = new FormGroup({
@@ -76,6 +77,7 @@ export class CheckoutCartComponent implements OnInit, OnDestroy {
     });
 
     this.scrollService.activeSection.next("hero");
+    this.scrollService.scrollToTop();
   }
 
   ngOnDestroy(): void {
@@ -111,5 +113,9 @@ export class CheckoutCartComponent implements OnInit, OnDestroy {
       queryParams: { sec: "electronics" },
       queryParamsHandling: "merge",
     });
+  }
+
+  onLoad() {
+    this.loading = false;
   }
 }

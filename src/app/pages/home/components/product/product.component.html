@@ -8,7 +8,7 @@
       class="h-32 md:h-40 lg:h-56 aspect-auto"
     />
     <div
-      class="h-32 md:h-40 lg:h-56 w-full flex items-center justify-center animate-pulse bg-gray-200 text-xs text-gray-400"
+      class="h-32 md:h-40 lg:h-56 w-full flex items-center justify-center animate-pulse bg-gray-200 text-xs text-gray-400 rounded-lg"
       *ngIf="loading"
     >
       Loading image...
@@ -34,7 +34,10 @@
     <p class="text-sm text-gray-400 line-clamp-1 mt-2">
       {{ product.description }}
     </p>
-    <button (click)="showMoreDetail()" class="text-sm text-blue-500 pr-3 py-1">
+    <button
+      (click)="showMoreDetail()"
+      class="text-sm text-blue-500 px-3 py-1 bg-blue-50 rounded-lg mt-2"
+    >
       Read more
     </button>
   </div>

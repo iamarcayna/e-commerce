@@ -28,19 +28,23 @@ export class AppComponent implements OnInit {
     // tailwind md:screen is 768px
     if ((event.target as Window).innerWidth >= 768) {
       this.open = false;
-      document.body.classList.remove("overflow-y-hidden");
-      document.body.classList.add("overflow-y-scroll");
+      if (!this.showModal) {
+        document.body.classList.remove("overflow-y-hidden");
+        document.body.classList.add("overflow-y-scroll");
+      }
     }
   }
 
-  @HostListener("window:scroll", ["$event"])
-  onWindowScroll() {
-    this.showModal = false;
-  }
-
   ngOnInit(): void {
-    this.modalService.showModal.subscribe((show) => {
-      this.showModal = show;
+    this.modalService.showModal.subscribe((product) => {
+      this.showModal = product ? true : false;
+      if (this.showModal) {
+        document.body.classList.remove("overflow-y-scroll");
+        document.body.classList.add("overflow-y-hidden");
+      } else {
+        document.body.classList.remove("overflow-y-hidden");
+        document.body.classList.add("overflow-y-scroll");
+      }
     });
     this.snackBarService.setContainer(this.snackbarContainer);
   }

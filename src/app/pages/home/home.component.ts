@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           queryParams: { sec: null },
           queryParamsHandling: "merge",
         });
-      }, 500);
+      }, 150);
     }
   }
 }

@@ -3,7 +3,7 @@
   <router-outlet></router-outlet>
 </main>
 <app-drawer [open]="open" (close)="drawerClose()"></app-drawer>
-<app-product-more-detail *ngIf="showModal"></app-product-more-detail>
+<app-product-more-detail [hidden]="!showModal"></app-product-more-detail>
 <div
   class="fixed top-24 left-0 w-full flex items-center justify-center flex-col"
 >

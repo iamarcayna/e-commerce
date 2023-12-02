@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { Subject } from "rxjs";
+import { Product } from "../models/product.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class ModalService {
-  showModal: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  showModal: Subject<Product | null> = new Subject();
 }

@@ -52,21 +52,17 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   onAddToCart() {
-    if (this.product.onCart) {
-      // TODO: Open cart modal.
-    } else {
-      this.cartService.addToCart({
-        name: this.product.title,
-        price: this.product.price,
-        quantity: 1,
-        id: this.product.id,
-        image: this.product.image,
-      });
-    }
+    this.cartService.addToCart({
+      name: this.product.title,
+      price: this.product.price,
+      quantity: 1,
+      id: this.product.id,
+      image: this.product.image,
+    });
   }
 
   showMoreDetail() {
-    this.modalService.showModal.next(true);
+    this.modalService.showModal.next(this.product);
   }
 
   onLoad() {

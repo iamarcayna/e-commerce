@@ -1,6 +1,54 @@
 <div
+  *ngIf="product"
   (click)="closeModal()"
-  class="fixed top-0 left-0 w-full h-[100vh] bg-black/90 z-40 flex items-center justify-center"
+  class="fixed top-0 left-0 w-full h-[100vh] bg-black/50 z-40 flex items-center pt-20 justify-center"
 >
-  <div class="h-[500px] w-[500px] bg-white mt-20"></div>
+  <div
+    (click)="$event.stopPropagation()"
+    class="p-2 md:p-5 bg-white rounded-xl mx-3 my-auto max-h-[80vh]"
+  >
+    <div class="w-full overflow-y-auto max-h-[70vh] h-auto md:w-[500px]">
+      <div class="flex items-center justify-center bg-white sticky top-0 py-4">
+        <img
+          [hidden]="loading"
+          (load)="onLoad()"
+          [src]="product.image"
+          [alt]="product.title"
+          class="h-32 aspect-auto"
+        />
+        <div
+          class="h-32 w-full flex items-center justify-center animate-pulse bg-gray-200 text-xs text-gray-400 rounded-lg"
+          *ngIf="loading"
+        >
+          Loading image...
+        </div>
+        <button
+          (click)="closeModal()"
+          class="absolute right-0 top-0 rounded-full bg-white text-gray-200 p-2 hover:text-orange-300 hover:bg-gray-100"
+          aria-label="close modal"
+        >
+          <!-- close icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+          >
+            <path
+              fill="currentColor"
+              d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <p class="font-semibold text-blue-500 mb-3 text-center rounded-b-lg p-4">
+        {{ product.title }}
+      </p>
+      <div class="h-auto mt-2 bg-gray-50 rounded-lg p-3">
+        <p class="font-bold text-xs text-gray-600 mb-2">Description:</p>
+        <p class="text-sm text-gray-600 leading-7">{{ product.description }}</p>
+      </div>
+    </div>
+  </div>
 </div>

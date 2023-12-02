@@ -2,11 +2,11 @@
   class="flex-col-reverse md:flex-row flex items-center justify-center gap-10 max-w-screen-2xl mx-auto mt-10 px-2 md:px-4 lg:px-6 xl:px-8"
 >
   <div
-    class="flex-1 h-full p-5 rounded-lg shadow-md w-full bg-white overflow-hidden self-start"
+    class="flex-1 h-full p-5 rounded-lg shadow-md w-full bg-white overflow-hidden self-start mb-5"
   >
     <p class="text-2xl font-bold mb-10 text-gray-800">Shopping Cart</p>
     <div
-      [ngClass]="cart.items.length !== 0 ? 'h-[370px]' : 'h-auto'"
+      [ngClass]="cart.items.length !== 0 ? 'h-[60vh]' : 'h-auto'"
       class="overflow-auto shadow w-full"
     >
       <table class="w-full">
@@ -23,10 +23,18 @@
           <td class="w-4/12 min-w-[270px]">
             <div class="flex items-center gap-4 pl-4">
               <img
+                [hidden]="loading"
                 [src]="item.image"
                 [alt]="item.name"
+                (load)="onLoad()"
                 class="h-24 aspect-auto"
               />
+              <div
+                class="h-24 aspect-video flex items-center justify-center animate-pulse bg-gray-200 text-xs text-gray-400 rounded-lg"
+                *ngIf="loading"
+              >
+                Loading image...
+              </div>
               <p class="h-full line-clamp-4 font-semibold text-gray-700">
                 {{ item.name }}
               </p>
@@ -126,7 +134,9 @@
       </div>
     </div>
   </div>
-  <div class="w-full md:w-80 h-full bg-slate-800 p-5 rounded-lg shadow-md">
+  <div
+    class="w-full md:w-80 h-full bg-slate-800 p-5 rounded-lg shadow-md self-start"
+  >
     <p class="text-2xl font-bold mb-10 text-gray-300">Payment Info</p>
     <form [formGroup]="checkoutForm" (ngSubmit)="onCheckOut()">
       <div class="mb-7">
