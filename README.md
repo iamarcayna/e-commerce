@@ -14,6 +14,11 @@ The Shoppers E-commerce App provides the following features:
 
 3. Simulate Checkout: Although this app doesn't complete real transactions, users can simulate a checkout process to understand the flow. This includes reviewing items in the cart and a simulated payment step.
 
+## Previews
+![Desktop View](https://portfolio-iamarcayna.vercel.app/assets/images/project_1.jpg)
+
+![Mobile View](https://portfolio-iamarcayna.vercel.app/assets/images/project_1-mobile-1.jpg) ![Mobile View](https://portfolio-iamarcayna.vercel.app/assets/images/project_1-mobile-2.jpg) ![Mobile View](https://portfolio-iamarcayna.vercel.app/assets/images/project_1-mobile-3.jpg)
+
 ## Try It Out!
 
 To experience the Shoppers E-commerce App, access the live deployment at the following URL: [https://e-commerce-iamarcayna.vercel.app/](https://e-commerce-iamarcayna.vercel.app/)
